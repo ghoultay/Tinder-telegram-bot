@@ -71,26 +71,3 @@ This project implements a Telegram bot designed to assist users in creating and 
       service_url = YOUR_SERVICE_URL
       mongo_url = YOUR_MONGO_URL
       ```
-
-## Contributing
-
-1. **Fork the Repository**:
-    - Click on the "Fork" button at the top-right of this repository page.
-
-2. **Create a Feature Branch**:
-    ```bash
-    git checkout -b feature/ghoultay
-    ```
-
-3. **Commit Your Changes**:
-    ```bash
-    git commit -am 'Add new feature'
-    ```
-
-4. **Push to the Branch**:
-    ```bash
-    git push origin feature/ghoultay
-    ```
-
-5. **Create a Pull Request**:
-    - Go to the "Pull Requests" tab in this repository and create a new pull request from your feature branch.
