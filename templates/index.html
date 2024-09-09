@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User and Interaction CRUD</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>User and Interaction CRUD</h1>
+    
+    <!-- User CRUD Form -->
+    <h2>User CRUD</h2>
+    <form id="userForm">
+        <label for="telegram_id">Telegram ID:</label>
+        <input type="number" id="telegram_id" name="telegram_id" required>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex" required>
+            <option value="Man">Man</option>
+            <option value="Woman">Woman</option>
+        </select>
+        <label for="interested_in">Interested In:</label>
+        <select id="interested_in" name="interested_in" required>
+            <option value="Man">Man</option>
+            <option value="Woman">Woman</option>
+            <option value="Both">Both</option>
+        </select>
+        <label for="about_me">About Me:</label>
+        <textarea id="about_me" name="about_me"></textarea>
+        <button type="submit" onclick="insertUser()">Add User</button>
+    </form>
+
+    <!-- Interaction CRUD Form -->
+    <h2>Interaction CRUD</h2>
+    <form id="interactionForm">
+        <label for="user_id">User ID:</label>
+        <input type="number" id="user_id" name="user_id" required>
+        <label for="interacted_user_id">Interacted User ID:</label>
+        <input type="number" id="interacted_user_id" name="interacted_user_id" required>
+        <label for="interaction_type">Interaction Type:</label>
+        <select id="interaction_type" name="interaction_type" required>
+            <option value="like">Like</option>
+            <option value="dislike">Dislike</option>
+            <option value="message">Message</option>
+            <option value="report">Report</option>
+        </select>
+        <button type="submit" onclick="insertInteraction()">Add Interaction</button>
+    </form>
+
+    <!-- Output Area for Messages -->
+    <div id="output"></div>
+
+    <script>
+        // Function to handle user insertion
+        function insertUser() {
+            event.preventDefault();
+            const telegram_id = document.getElementById('telegram_id').value;
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const sex = document.getElementById('sex').value;
+            const interested_in = document.getElementById('interested_in').value;
+            const about_me = document.getElementById('about_me').value;
+            fetch('/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    telegram_id: telegram_id,
+                    name: name,
+                    age: age,
+                    sex: sex,
+                    interested_in: interested_in,
+                    about_me: about_me
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Function to handle interaction insertion
+        function insertInteraction() {
+            event.preventDefault();
+            const user_id = document.getElementById('user_id').value;
+            const interacted_user_id = document.getElementById('interacted_user_id').value;
+            const interaction_type = document.getElementById('interaction_type').value;
+            fetch('/interactions', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+            user_id: user_id,
+            interacted_user_id: interacted_user_id,
+            interaction_type: interaction_type
+            })
+            })
+            .then(response => response.json())
+            .then(data => {
+            document.getElementById('output').innerText = data.message;
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            });
+            }
+            </script>
+
+</body>
+</html>
